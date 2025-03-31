@@ -1,0 +1,9 @@
+{
+    "name": "ddd-steps-list",
+    "version": "1.0.0",
+    "type": "module",
+    "scripts": {},
+    "dependencies": {
+      "lit": "^3.1.0"
+    }
+  }  

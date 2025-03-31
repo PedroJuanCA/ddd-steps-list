@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Steps List Demo</title>
+    <script type="module" src="./src/index.js"></script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f0f0f0;
+        margin: 0;
+        padding: 2rem;
+      }
+    </style>
+  </head>
+  <body>
+    <ddd-steps-list ddd-primary="5">
+      <h2>I’m invalid and will be removed</h2>
+
+      <ddd-steps-list-item title="Choose your enrollment period">
+        <p>Complete this before the Fall 2025 semester begins.</p>
+        <ul>
+          <li>Decide fall or spring start</li>
+          <li>Apply online</li>
+        </ul>
+      </ddd-steps-list-item>
+
+      <ddd-steps-list-item title="Submit your transcript">
+        <p>Send official transcripts from all previous schools.</p>
+        <ul>
+          <li>Use Parchment or mail</li>
+          <li>Double check address</li>
+        </ul>
+      </ddd-steps-list-item>
+    </ddd-steps-list>
+  </body>
+</html>
