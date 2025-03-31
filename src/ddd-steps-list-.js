@@ -19,21 +19,28 @@ export class DDDStepsList extends DDDSuper {
 
   connectedCallback() {
     super.connectedCallback();
-    this.validateChildren();
-    this.numberSteps();
+    this._observer = new MutationObserver(() => this.updateSteps());
+    this._observer.observe(this, { childList: true, subtree: false });
+    this.updateSteps();
   }
 
-  validateChildren() {
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    if (this._observer) this._observer.disconnect();
+  }
+
+  updateSteps() {
+    const validItems = [...this.children].filter((el) =>
+      el.tagName.toLowerCase() === "ddd-steps-list-item"
+    );
+
     [...this.children].forEach((el) => {
       if (el.tagName.toLowerCase() !== "ddd-steps-list-item") {
-        el.remove();
+        this.removeChild(el);
       }
     });
-  }
 
-  numberSteps() {
-    const items = [...this.querySelectorAll("ddd-steps-list-item")];
-    items.forEach((item, index) => {
+    validItems.forEach((item, index) => {
       item.step = index + 1;
       item.dddPrimary = this.dddPrimary;
     });
@@ -44,16 +51,9 @@ export class DDDStepsList extends DDDSuper {
       super.styles,
       css`
         :host {
-          display: flex;
-          flex-direction: column;
-          gap: 1.5rem;
-          padding: 2rem;
-          background-color: var(--ddd-theme-background, #f9f9f9);
-          border-left: 6px solid var(--ddd-theme-default, #0072ce);
-          border-radius: 12px;
-          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-          max-width: 800px;
-          margin: 0 auto;
+          display: block;
+          padding-left: 1rem;
+          border-left: 6px solid var(--ddd-theme-default, #000);
         }
       `,
     ];

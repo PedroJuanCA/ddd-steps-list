@@ -27,45 +27,38 @@ export class DDDStepsListItem extends DDDSuper {
       css`
         :host {
           display: block;
-        }
-
-        .card {
           position: relative;
           background: var(--ddd-theme-background, #fff);
-          padding: 1.5rem 1rem 1rem 3rem;
-          border-left: 5px solid var(--ddd-theme-default, #333);
-          border-radius: 8px;
-          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+          border-left: 4px solid var(--ddd-theme-color, #0072ce);
+          padding: 1rem 1rem 1rem 3.5rem;
+          margin-bottom: 1rem;
+          border-radius: 0.5rem;
+          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         }
 
-        .step-number {
+        .step-circle {
           position: absolute;
-          left: -1.25rem;
           top: 1rem;
-          background: var(--ddd-theme-${this.dddPrimary}, #0072ce);
-          color: white;
+          left: -1.5rem;
           width: 2rem;
           height: 2rem;
           border-radius: 50%;
+          background: var(--ddd-theme-color, #0072ce);
+          color: white;
           display: flex;
           align-items: center;
           justify-content: center;
           font-weight: bold;
-          font-size: 0.9rem;
         }
 
         .title {
+          font-weight: bold;
           font-size: 1.1rem;
-          font-weight: 600;
           margin-bottom: 0.5rem;
         }
 
-        ::slotted(p) {
+        ::slotted(p), ::slotted(ul) {
           margin: 0.5rem 0 0 0;
-        }
-
-        ::slotted(ul) {
-          margin: 0.5rem 0 0 1rem;
         }
       `,
     ];
@@ -73,14 +66,9 @@ export class DDDStepsListItem extends DDDSuper {
 
   render() {
     return html`
-      <div
-        class="card"
-        style="border-color: var(--ddd-theme-${this.dddPrimary}, #0072ce);"
-      >
-        <div class="step-number">${this.step}</div>
-        <div class="title">${this.title}</div>
-        <slot></slot>
-      </div>
+      <div class="step-circle">${this.step}</div>
+      <div class="title">Step ${this.step}: ${this.title}</div>
+      <slot></slot>
     `;
   }
 }
