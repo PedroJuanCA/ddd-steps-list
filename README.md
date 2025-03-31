@@ -12,7 +12,7 @@ A custom PSU HAX + DDD web component for Project 1.
 
 ## Live Demo
 
-👉 https://YOUR-VERCEL-LINK.vercel.app
+https://ddd-steps-list-azure.vercel.app/
 
 ## Files
 
