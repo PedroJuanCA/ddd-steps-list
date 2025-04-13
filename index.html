@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vertical Steps List</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      background: #fff;
+      margin: 2rem auto;
+      max-width: 800px;
+      padding: 1rem;
+      line-height: 1.6;
+      color: #222;
+    }
+
+    /* Intro paragraph + heading padding */
+    .intro {
+      padding-left: 0.60rem;
+    }
+
+    /* Container for all steps */
+    ddd-steps-list {
+      display: block;
+      position: relative;
+      padding-left: 3.25rem; /* aligns text content with heading */
+    }
+
+    /* Vertical dashed line as a full line from top to bottom */
+    ddd-steps-list::before {
+      content: "";
+      position: absolute;
+      top: 1.25rem;
+      bottom: 0;
+      left: 1.25rem;
+      width: 2px;
+      background: repeating-linear-gradient(
+        to bottom,
+        #004080,
+        #004080 4px,
+        transparent 4px,
+        transparent 8px
+      );
+      z-index: 0;
+    }
+    /* Each step block */
+    ddd-steps-list-item {
+      position: relative;
+      margin-bottom: 1.75rem;
+      display: block;
+    }
+
+    /* Numbered circle for each step */
+    ddd-steps-list-item::before {
+      content: attr(data-step);
+      position: absolute;
+      left: -2.95rem;
+      top: 0.0rem;
+      width: 2rem;
+      height: 2rem;
+      background-color: #004080;
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1rem;
+      z-index: 1;
+    }
+
+    /* Step title */
+    ddd-steps-list-item h3 {
+      margin: 0 0 0.3rem;
+      font-size: 1.15rem;
+      color: #002855;
+    }
+
+    /* Email & Link colors */
+    a {
+      color: #005fa9;
+      text-decoration: underline;
+    }
+
+    /* Step image styling */
+    img {
+      margin-top: 1rem;
+      max-width: 100%;
+      border-radius: 8px;
+    }
+
+    @media (max-width: 600px) {
+      .intro {
+        padding-left: 2rem;
+      }
+
+      ddd-steps-list {
+        padding-left: 2rem;
+      }
+
+      ddd-steps-list::before {
+        left: 1rem;
+      }
+
+      ddd-steps-list-item::before {
+        left: -1.75rem;
+        width: 1.6rem;
+        height: 1.6rem;
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+
+  <script type="module">
+    class DddStepsListItem extends HTMLElement {
+      static get observedAttributes() {
+        return ['data-step'];
+      }
+      constructor() {
+        super();
+        this.attachShadow({ mode: 'open' });
+      }
+      connectedCallback() {
+        this.render();
+      }
+      attributeChangedCallback() {
+        this.render();
+      }
+      render() {
+        this.shadowRoot.innerHTML = `<slot></slot>`;
+      }
+    }
+
+    class DddStepsList extends HTMLElement {
+      connectedCallback() {
+        this.updateSteps();
+      }
+
+      updateSteps() {
+        const items = Array.from(this.children).filter(el => el.tagName === 'DDD-STEPS-LIST-ITEM');
+        items.forEach((el, i) => {
+          el.setAttribute('data-step', i + 1);
+        });
+      }
+    }
+
+    customElements.define('ddd-steps-list-item', DddStepsListItem);
+    customElements.define('ddd-steps-list', DddStepsList);
+  </script>
+</head>
+
+<body>
+  <div class="intro">
+    <h2>Start Planning Your Penn State Experience</h2>
+    <p>
+      Take the next steps toward a future at Penn State Altoona. Find admission requirements, tuition and financial aid, and other information to get you ready to apply.
+    </p>
+  </div>
+
+  <ddd-steps-list>
+    <ddd-steps-list-item>
+      <h3>Choose your enrollment period</h3>
+      <p>You will need to complete the FAFSA each year for financial aid consideration:</p>
+      <ul>
+        <li>Summer 2024</li>
+        <li>Fall 2024 / Spring 2025</li>
+      </ul>
+    </ddd-steps-list-item>
+
+    <ddd-steps-list-item>
+      <h3>Get help</h3>
+      <p>Utilize these resources for assistance with Federal Aid:</p>
+      <ul>
+        <li>Call the Federal Student Aid Information Center at 1-800-433-3243</li>
+        <li>Visit the <a href="https://studentaid.gov" target="_blank">FAFSA: Applying for Aid</a> site</li>
+        <li>Follow Federal Student Aid on YouTube</li>
+      </ul>
+    </ddd-steps-list-item>
+
+    <ddd-steps-list-item>
+      <h3>Ensure Receipt of Email</h3>
+      <p>Ensure your email settings allow messages from these addresses:</p>
+      <ul>
+        <li><a href="mailto:osa-noreply@psu.edu">osa-noreply@psu.edu</a></li>
+        <li><a href="mailto:OSAaward@psu.edu">OSAaward@psu.edu</a></li>
+        <li><a href="mailto:FederalStudentAidFAFSA@cpsemail.ed.gov">FederalStudentAidFAFSA@cpsemail.ed.gov</a></li>
+        <li><a href="mailto:FederalStudentAidPIN@cpsemail.ed.gov">FederalStudentAidPIN@cpsemail.ed.gov</a></li>
+      </ul>
+    </ddd-steps-list-item>
+
+    <ddd-steps-list-item>
+      <h3>Review Your Student Aid Report</h3>
+      <p>After submitting the FAFSA, you’ll receive a Student Aid Report (SAR) via email.</p>
+      <ul>
+        <li>Verify all information is correct and make necessary corrections through the FAFSA website.</li>
+        <li>For questions, contact the Federal Student Aid Information Center at 1-800-433-3243 and provide your DRN number from the SAR.</li>
+        <li>Print the revised copy for your records.</li>
+      </ul>
+      <img src="https://th.bing.com/th/id/OIP.0OWXMNZ6gkAFbro0VRnJmgHaGG?rs=1&pid=ImgDetMain" alt="Financial Aid" />
+    </ddd-steps-list-item>
+  </ddd-steps-list>
+</body>
+</html>

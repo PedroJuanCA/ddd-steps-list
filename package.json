@@ -1,0 +1,13 @@
+{
+  "name": "ddd-steps-list",
+  "version": "1.0.0",
+  "description": "A web component project using DDD and HAX.",
+  "scripts": {
+    "start": "http-server ."
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  },
+  "author": "Your Name",
+  "license": "MIT"
+}
